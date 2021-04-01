@@ -1,14 +1,14 @@
-name: DIYCraft
-main: CraftItem.Craft
+name: CustomCraft
+main: customcraft.Main
 api: ["1.0.8"]
-version: "1.0.9"
+version: "1.0.0-UHC_Land"
 author: "若水"
 load: POSTWORLD
 commands:
   craft:
     usage: "/craft add <name> 将手中物品添加配置"
     description: "将手中物品添加为合成物品或输入物品"
-    permission: diycraft.craft
+    permission: customcraft.craft
 permissions:
-  diycraft.craft:
+  customcraft.craft:
     default: op
