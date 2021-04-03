@@ -1,4 +1,4 @@
-package customcraft.recipe;
+package com.smallaswater.customcraft.recipe;
 
 /**
  * @author lt_name

@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>CustomCraft</groupId>
+    <groupId>com.smallaswater</groupId>
     <artifactId>CustomCraft</artifactId>
-    <version>1.0.0-UHC_Land</version>
+    <version>1.1.0-UHC_Land</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -130,7 +130,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>${project.basedir}/src/main/java/customcraft/Main.java</include>
+                                <include>${project.basedir}/src/main/java/com/smallaswater/customcraft/CustomCraft.java</include>
                                 <include>${project.basedir}/src/main/resources/plugin.yml</include>
                             </includes>
                             <replacements>

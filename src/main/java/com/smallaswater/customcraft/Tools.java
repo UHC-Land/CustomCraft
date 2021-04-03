@@ -1,4 +1,4 @@
-package customcraft;
+package com.smallaswater.customcraft;
 
 import java.util.Base64;
 

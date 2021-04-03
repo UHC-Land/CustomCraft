@@ -1,4 +1,4 @@
-package customcraft;
+package com.smallaswater.customcraft;
 
 import cn.nukkit.item.Item;
 
@@ -13,7 +13,7 @@ class CraftItem {
         if (str.split(SPLIT_1).length > 1) {
             String itemString = str.split(SPLIT_1)[0];
             if (NBT.equals(str.split(SPLIT_1)[1])) {
-                String configString = Main.getNbtItem(itemString);
+                String configString = CustomCraft.getNbtItem(itemString);
                 if (!"".equals(configString)) {
                     String[] items = configString.split(SPLIT_2);
                     Item item = Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]), Integer.parseInt(items[2]));

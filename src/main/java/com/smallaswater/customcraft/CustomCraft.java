@@ -1,5 +1,4 @@
-package customcraft;
-
+package com.smallaswater.customcraft;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
@@ -12,8 +11,8 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.TextFormat;
 import cn.nukkit.utils.Utils;
-import customcraft.recipe.CustomShapedRecipe;
-import customcraft.recipe.CustomShapelessRecipe;
+import com.smallaswater.customcraft.recipe.CustomShapedRecipe;
+import com.smallaswater.customcraft.recipe.CustomShapelessRecipe;
 import io.netty.util.collection.CharObjectHashMap;
 import lombok.Getter;
 
@@ -24,11 +23,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public class Main extends PluginBase {
+public class CustomCraft extends PluginBase {
 
     public static final String VERSION = "?";
 
-    private static Main instance;
+    private static CustomCraft instance;
 
     private Config craft = null;
     private Config nbt = null;
@@ -140,7 +139,7 @@ public class Main extends PluginBase {
         manager.rebuildPacket();
     }
 
-    private static Main getInstance() {
+    private static CustomCraft getInstance() {
         return instance;
     }
 
@@ -209,7 +208,7 @@ public class Main extends PluginBase {
         if (tag != null && !"".equals(tag)) {
             return false;
         } else {
-            Config config = Main.getInstance().getCraftItemConfig();
+            Config config = CustomCraft.getInstance().getCraftItemConfig();
             config.set(name, CraftItem.toStringItem(item));
             config.save();
             return true;

@@ -1,4 +1,4 @@
-package customcraft;
+package com.smallaswater.customcraft;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
@@ -8,7 +8,7 @@ import cn.nukkit.event.inventory.CraftItemEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.inventory.Recipe;
 import cn.nukkit.utils.TextFormat;
-import customcraft.recipe.ICustomRecipe;
+import com.smallaswater.customcraft.recipe.ICustomRecipe;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,15 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class EventListener implements Listener {
 
-    private final Main main;
+    private final CustomCraft customCraft;
 
-    public EventListener(Main main) {
-        this.main = main;
+    public EventListener(CustomCraft customCraft) {
+        this.customCraft = customCraft;
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        this.main.getPlayerCraftCountMap().remove(event.getPlayer());
+        this.customCraft.getPlayerCraftCountMap().remove(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -37,14 +37,14 @@ public class EventListener implements Listener {
             if (customRecipe.getMaxCraftCount() <= 0) {
                 return;
             }
-            ConcurrentHashMap<Recipe, Integer> map = this.main.getPlayerCraftCountMap().getOrDefault(player, new ConcurrentHashMap<>());
+            ConcurrentHashMap<Recipe, Integer> map = this.customCraft.getPlayerCraftCountMap().getOrDefault(player, new ConcurrentHashMap<>());
             int newCount = map.getOrDefault(recipe, 0) + 1;
             if (newCount > customRecipe.getMaxCraftCount()) {
                 player.sendMessage(TextFormat.RED + "超过最大合成次数限制，您无法再次合成此物品");
                 event.setCancelled(true);
             } else {
                 map.put(recipe, newCount);
-                this.main.getPlayerCraftCountMap().put(player, map);
+                this.customCraft.getPlayerCraftCountMap().put(player, map);
             }
         }
     }
