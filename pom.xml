@@ -66,6 +66,13 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-repo</id>
+            <url>file:/www/wwwroot/repo.lanink.cn</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
