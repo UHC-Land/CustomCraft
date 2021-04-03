@@ -39,6 +39,10 @@ public class CustomCraft extends PluginBase {
     @Getter
     private final ConcurrentHashMap<Player, ConcurrentHashMap<Recipe, Integer>> playerCraftCountMap = new ConcurrentHashMap<>();
 
+    public static CustomCraft getInstance() {
+        return instance;
+    }
+
     @Override
     public void onLoad() {
         instance = this;
@@ -139,10 +143,6 @@ public class CustomCraft extends PluginBase {
         manager.rebuildPacket();
     }
 
-    private static CustomCraft getInstance() {
-        return instance;
-    }
-
     private void loadCraftConfig() {
         this.saveResource("craft.json");
         if (this.craft == null) {
@@ -165,11 +165,9 @@ public class CustomCraft extends PluginBase {
         return nbt;
     }
 
-
     public static String getNbtItem(String string) {
         return instance.getCraftItemConfig().getString(string);
     }
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
