@@ -1,14 +1,14 @@
 name: CustomCraft
 main: com.smallaswater.customcraft.CustomCraft
 api: ["1.0.8"]
-version: "1.1.0-UHC_Land"
+version: "1.1.2-UHC_Land"
 author: "若水"
 load: POSTWORLD
 commands:
   craft:
     usage: "/craft add <name> 将手中物品添加配置"
     description: "将手中物品添加为合成物品或输入物品"
-    permission: com.smallaswater.customcraft.craft
+    permission: customcraft.craft
 permissions:
   customcraft.craft:
     default: op
