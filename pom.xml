@@ -6,7 +6,7 @@
 
     <groupId>com.smallaswater</groupId>
     <artifactId>CustomCraft</artifactId>
-    <version>1.1.2-UHC_Land</version>
+    <version>1.2.0-UHC_Land</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

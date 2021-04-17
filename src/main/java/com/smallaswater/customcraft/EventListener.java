@@ -35,7 +35,13 @@ public class EventListener implements Listener {
         Player player = event.getPlayer();
         Recipe recipe = event.getRecipe();
         if (recipe instanceof ICustomRecipe) {
-            CraftCustomItemEvent ev = new CraftCustomItemEvent(event.getTransaction());
+            CraftCustomItemEvent ev;
+            //TODO fix
+            /*if (event.getTransaction() != null) {
+                ev = new CraftCustomItemEvent(event.getTransaction());
+            }else {*/
+                ev = new CraftCustomItemEvent(event.getPlayer(), event.getInput(), event.getRecipe());
+            //}
             Server.getInstance().getPluginManager().callEvent(ev);
             if (!ev.isCancelled()) {
                 ICustomRecipe customRecipe = (ICustomRecipe) recipe;
