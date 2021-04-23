@@ -72,71 +72,81 @@ public class CustomCraft extends PluginBase {
         this.playerCraftCountMap.clear();
     }
 
+    @SuppressWarnings("rawtypes")
     private void registerFrame() {
         CraftingManager manager = this.getServer().getCraftingManager();
         Map<String, Object> strings = frame.getAll();
         if (strings.size() > 0) {
             for (String outputName : strings.keySet()) {
-                Object o = strings.get(outputName);
-                if (o instanceof Map) {
-                    Item outputItem = CraftItem.toItem((String) ((Map) o).get("output"));
-                    if (CraftItem.isCraftItem(outputItem)) {
-                        Item inputItem = CraftItem.toItem((String) ((Map) o).get("input"));
-                        manager.registerFurnaceRecipe(new FurnaceRecipe(outputItem, inputItem));
-                        manager.rebuildPacket();
+                try {
+                    Object o = strings.get(outputName);
+                    if (o instanceof Map) {
+                        Item outputItem = CraftItem.toItem((String) ((Map) o).get("output"));
+                        if (CraftItem.isCraftItem(outputItem)) {
+                            Item inputItem = CraftItem.toItem((String) ((Map) o).get("input"));
+                            manager.registerFurnaceRecipe(new FurnaceRecipe(outputItem, inputItem));
+                            manager.rebuildPacket();
+                        }
                     }
+                } catch (Exception e) {
+                    this.getLogger().error("注册熔炉配方时出现错误：", e);
                 }
             }
         }
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void registerCraft() {
         CraftingManager manager = this.getServer().getCraftingManager();
         List<Map> recipes = craft.getMapList("recipes");
         if (recipes.size() > 0) {
             for (Map recipe : recipes) {
-                if (Utils.toInt(recipe.get("type")) == 0) {
-                    Item outputItem = CraftItem.toItem((String) recipe.get("output"));
-                    if (!Item.isCreativeItem(outputItem)) {
-                        Item.addCreativeItem(outputItem);
-                    }
-                    ArrayList<Item> inputItems = new ArrayList<>();
-                    List items = (List) recipe.get("input");
-                    for (Object s : items) {
-                        if (s instanceof String) {
-                            if (CraftItem.isCraftItem((String) s)) {
-                                Item input = CraftItem.toItem((String) s);
-                                inputItems.add(input);
+                try {
+                    if (Utils.toInt(recipe.get("type")) == 0) {
+                        Item outputItem = CraftItem.toItem((String) recipe.get("output"));
+                        if (!Item.isCreativeItem(outputItem)) {
+                            Item.addCreativeItem(outputItem);
+                        }
+                        ArrayList<Item> inputItems = new ArrayList<>();
+                        List items = (List) recipe.get("input");
+                        for (Object s : items) {
+                            if (s instanceof String) {
+                                if (CraftItem.isCraftItem((String) s)) {
+                                    Item input = CraftItem.toItem((String) s);
+                                    inputItems.add(input);
+                                }
                             }
                         }
-                    }
-                    CustomShapelessRecipe result = new CustomShapelessRecipe(outputItem, inputItems);
-                    result.setMaxCraftCount(Utils.toInt(recipe.get("maxCraftCount")));
-                    manager.registerRecipe(result);
-                } else {
-                    Item outputItem = CraftItem.toItem((String) recipe.get("output"));
-                    if (!Item.isCreativeItem(outputItem)) {
-                        Item.addCreativeItem(outputItem);
-                    }
-                    String[] shape = (String[]) ((List) recipe.get("shape")).toArray(new String[0]);
-                    Map input = (Map) recipe.get("input");
-                    Map<Character, Item> ingredients = new CharObjectHashMap<>();
-                    for (Object s : input.keySet()) {
-                        if (s instanceof String) {
-                            if (CraftItem.isCraftItem((String) input.get(s))) {
-                                Item inputs = CraftItem.toItem((String) input.get(s));
-                                ingredients.put(((String) s).charAt(0), inputs);
+                        CustomShapelessRecipe result = new CustomShapelessRecipe(outputItem, inputItems);
+                        result.setMaxCraftCount(Utils.toInt(recipe.get("maxCraftCount")));
+                        manager.registerRecipe(result);
+                    } else {
+                        Item outputItem = CraftItem.toItem((String) recipe.get("output"));
+                        if (!Item.isCreativeItem(outputItem)) {
+                            Item.addCreativeItem(outputItem);
+                        }
+                        String[] shape = (String[]) ((List) recipe.get("shape")).toArray(new String[0]);
+                        Map input = (Map) recipe.get("input");
+                        Map<Character, Item> ingredients = new CharObjectHashMap<>();
+                        for (Object s : input.keySet()) {
+                            if (s instanceof String) {
+                                if (CraftItem.isCraftItem((String) input.get(s))) {
+                                    Item inputs = CraftItem.toItem((String) input.get(s));
+                                    ingredients.put(((String) s).charAt(0), inputs);
+                                }
                             }
                         }
-                    }
 
-                    CustomShapedRecipe result = new CustomShapedRecipe(
-                            outputItem,
-                            shape,
-                            ingredients,
-                            new LinkedList<>());
-                    result.setMaxCraftCount(Utils.toInt(recipe.get("maxCraftCount")));
-                    manager.registerRecipe(result);
+                        CustomShapedRecipe result = new CustomShapedRecipe(
+                                outputItem,
+                                shape,
+                                ingredients,
+                                new LinkedList<>());
+                        result.setMaxCraftCount(Utils.toInt(recipe.get("maxCraftCount")));
+                        manager.registerRecipe(result);
+                    }
+                } catch (Exception e) {
+                    this.getLogger().error("注册合成配方时出现错误：", e);
                 }
             }
         }
@@ -180,15 +190,14 @@ public class CustomCraft extends PluginBase {
                             String tag = getNbtItem(name);
                             if (tag != null && !"".equals(tag)) {
                                 sender.sendMessage(TextFormat.RED + "此物品名称已经存在..");
-                                return true;
                             } else {
                                 Item item = ((Player) sender).getInventory().getItemInHand();
                                 Config config = getCraftItemConfig();
                                 config.set(name, CraftItem.toStringItem(item));
                                 config.save();
                                 sender.sendMessage(TextFormat.GREEN + "名称" + name + "已保存到/nbtItems.json");
-                                return true;
                             }
+                            return true;
                         }
                     }
                 }

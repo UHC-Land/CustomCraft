@@ -32,11 +32,11 @@ class CraftItem {
     private static Item toStringItem(String i) {
         String[] items = i.split(SPLIT_2);
         if (items.length > 1) {
+            Item item = Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]));
             if (items.length > 2) {
-                Item item = Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]), Integer.parseInt(items[2]));
-                return item;
+                item.setCount(Integer.parseInt(items[2]));
             }
-            return Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]));
+            return item;
         }
         return Item.get(0);
     }
