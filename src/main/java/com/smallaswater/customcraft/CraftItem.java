@@ -1,5 +1,6 @@
 package com.smallaswater.customcraft;
 
+import cn.lanink.uhcchampion.items.ItemManager;
 import cn.nukkit.item.Item;
 
 class CraftItem {
@@ -16,7 +17,7 @@ class CraftItem {
                 String configString = CustomCraft.getNbtItem(itemString);
                 if (!"".equals(configString)) {
                     String[] items = configString.split(SPLIT_2);
-                    Item item = Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]), Integer.parseInt(items[2]));
+                    Item item = ItemManager.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]), Integer.parseInt(items[2]));
                     if (!NOT.equals(items[3])) {
                         item.setCompoundTag(Tools.hexStringToBytes(items[3]));
                     }
@@ -32,7 +33,7 @@ class CraftItem {
     private static Item toStringItem(String i) {
         String[] items = i.split(SPLIT_2);
         if (items.length > 1) {
-            Item item = Item.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]));
+            Item item = ItemManager.get(Integer.parseInt(items[0]), Integer.parseInt(items[1]));
             if (items.length > 2) {
                 item.setCount(Integer.parseInt(items[2]));
             }

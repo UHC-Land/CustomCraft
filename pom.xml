@@ -64,6 +64,14 @@
             <version>1.18.18</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>uhc</groupId>
+            <artifactId>UhcChampion</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/UhcChampion_v1.0.0-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <distributionManagement>
