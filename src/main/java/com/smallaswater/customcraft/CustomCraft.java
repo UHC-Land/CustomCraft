@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomCraft extends PluginBase {
 
-    public static final String VERSION = "1.2.0-UHC_Land git-32d2d8a";
+    public static final String VERSION = "?";
 
     private static CustomCraft instance;
 
@@ -146,7 +146,7 @@ public class CustomCraft extends PluginBase {
                         manager.registerRecipe(result);
                     }
                 } catch (Exception e) {
-                    this.getLogger().error("注册合成配方时出现错误：", e);
+                    this.getLogger().error("注册合成配方时出现错误：\n" + recipe.toString(), e);
                 }
             }
         }
