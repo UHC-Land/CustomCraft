@@ -150,7 +150,11 @@ public class CustomCraft extends PluginBase {
                 }
             }
         }
-        manager.rebuildPacket();
+        try {
+            manager.rebuildPacket();
+        } catch (Exception e) {
+            this.getLogger().error("编码数据包时出现错误：", e);
+        }
     }
 
     private void loadCraftConfig() {
