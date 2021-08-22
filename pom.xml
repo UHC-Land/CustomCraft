@@ -6,7 +6,7 @@
 
     <groupId>com.smallaswater</groupId>
     <artifactId>CustomCraft</artifactId>
-    <version>1.2.0-UHC_Land</version>
+    <version>1.3.0-UHC_Land</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -70,7 +70,7 @@
             <artifactId>UhcChampion</artifactId>
             <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/UhcChampion_v1.0.0-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/lib/uhc_lib.jar</systemPath>
         </dependency>
     </dependencies>
 

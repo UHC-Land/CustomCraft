@@ -19,7 +19,10 @@
         "AAA",
         "AAA"
       ],
-      "output": "58:0:1"
+      "output": "58:0:1",
+      "extraOutput":[
+        "3:0:1"
+      ]
     }
   ]
 }

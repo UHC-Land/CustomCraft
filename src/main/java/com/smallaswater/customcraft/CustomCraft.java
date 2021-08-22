@@ -98,7 +98,7 @@ public class CustomCraft extends PluginBase {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void registerCraft() {
         CraftingManager manager = this.getServer().getCraftingManager();
-        List<Map> recipes = craft.getMapList("recipes");
+        List<Map> recipes = this.craft.getMapList("recipes");
         if (recipes.size() > 0) {
             for (Map recipe : recipes) {
                 try {
@@ -137,11 +137,22 @@ public class CustomCraft extends PluginBase {
                             }
                         }
 
+                        LinkedList<Item> extraResults = new LinkedList<>();
+                        if (recipe.containsKey("extraOutput")) {
+                            List<String> extraOutput = (List<String>) recipe.get("extraOutput");
+                            for (String s : extraOutput) {
+                                if (CraftItem.isCraftItem(s)) {
+                                    Item item = CraftItem.toItem(s);
+                                    extraResults.add(item);
+                                }
+                            }
+                        }
+
                         CustomShapedRecipe result = new CustomShapedRecipe(
                                 outputItem,
                                 shape,
                                 ingredients,
-                                new LinkedList<>());
+                                extraResults);
                         result.setMaxCraftCount(Utils.toInt(recipe.get("maxCraftCount")));
                         manager.registerRecipe(result);
                     }
